@@ -323,17 +323,17 @@ const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => 
           {/* Fixed Header */}
           <thead>
             <tr>
-              <td colSpan={12} className="bg-blue-100 p-4 text-center font-bold border">
+              <td colSpan={18} className="bg-blue-100 p-4 text-center font-bold border">
                 RH-OAK-51-1 ( BARON )
               </td>
             </tr>
             <tr>
               <td colSpan={3} className="bg-gray-100 p-2 text-center border font-semibold">Header 1</td>
-              <td colSpan={2} className="bg-gray-100 p-2 text-center border font-semibold">Header 2</td>
-              <td className="bg-gray-100 p-2 text-center border font-semibold">Header 3</td>
+              <td colSpan={1} className="bg-gray-100 p-2 text-center border font-semibold">Header 2</td>
+              <td colSpan={3} className="bg-gray-100 p-2 text-center border font-semibold">Header 3</td>
               <td colSpan={2} className="bg-gray-100 p-2 text-center border font-semibold">Header 4</td>
-              <td className="bg-gray-100 p-2 text-center border font-semibold">Header 5</td>
-              <td colSpan={3} className="bg-gray-100 p-2 text-center border font-semibold">Header 6</td>
+              <td colSpan={5} className="bg-gray-100 p-2 text-center border font-semibold">Header 5</td>
+              <td colSpan={4} className="bg-gray-100 p-2 text-center border font-semibold">Header 6</td>
             </tr>
             <tr className="bg-gray-50">
               <th className="border p-2 text-sm">Step</th>
@@ -350,6 +350,10 @@ const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => 
               <th className="border p-2 text-sm">Ratio</th>
               <th className="border p-2 text-sm">Qty</th>
               <th className="border p-2 text-sm">Unit</th>
+              <th className="border p-2 text-sm">Check Result</th>
+              <th className="border p-2 text-sm">Correct Action</th>
+              <th className="border p-2 text-sm">Te-1's Signature</th>
+              <th className="border p-2 text-sm">Customer's Signature</th>
             </tr>
           </thead>
 
@@ -440,6 +444,10 @@ const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => 
                     <td className="border p-2 text-center">{material.ratio}</td>
                     <td className="border p-2 text-center">{material.qty}</td>
                     <td className="border p-2 text-center">{material.unit}</td>
+                    <td className="border p-2 text-center"></td>
+                    <td className="border p-2 text-center"></td>
+                    <td className="border p-2 text-center"></td>
+                    <td className="border p-2 text-center"></td>
                   </tr>
                 ))}
               </React.Fragment>
@@ -453,7 +461,7 @@ const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => 
                 <strong>PREPARED BY: FINISHING SPECIALIST</strong><br />
                 SOBANG KENNETH JOHN FLORES
               </td>
-              <td colSpan={4} className="border p-4 text-sm bg-gray-50">
+              <td colSpan={10} className="border p-4 text-sm bg-gray-50">
                 <strong>APPROVED BY: PAINT SUPPLIER</strong><br />
                 TE-1
               </td>
