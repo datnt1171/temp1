@@ -104,17 +104,55 @@ const sampleData = [
         unit: "g"
       }
     ]
-  }
+  },
+  {
+    step: "01",
+    stepname: "Dry sanding carefully (Chà nhám cẩn thận)",
+    viscosity_en: "",
+    viscosity_vn: "",
+    spec_en: "spec detail en",
+    spec_vn: "spec detail vn",
+    holdTime: "15",
+    chemicalCode: "320-Grit",
+    consumption: "0.125",
+    materials: [
+      {
+        materialCode: "080-01-01422",
+        materialName: "Sanding paper AP368 P320",
+        ratio: "0.0125",
+        qty: "0.001563",
+        unit: "Pc"
+      }
+    ]
+  },
+  {
+    step: "01",
+    stepname: "Dry sanding carefully (Chà nhám cẩn thận)",
+    viscosity_en: "",
+    viscosity_vn: "",
+    spec_en: "spec detail en",
+    spec_vn: "spec detail vn",
+    holdTime: "15",
+    chemicalCode: "320-Grit",
+    consumption: "0.125",
+    materials: [
+      {
+        materialCode: "080-01-01422",
+        materialName: "Sanding paper AP368 P320",
+        ratio: "0.0125",
+        qty: "0.001563",
+        unit: "Pc"
+      }
+    ]
+  },
 ];
-
-
 
 const ProductionTable = () => {
   const [data, setData] = useState(sampleData);
   
-  // Options for dropdowns
-  const stepOptions = data.map(item => ({
-    value: item.step,
+  // Options for stepname dropdown (using the stepname as the main selector)
+  const stepnameOptions = sampleData.map(item => ({
+    value: item.stepname,
     label: item.stepname
   }));
 
@@ -123,7 +161,7 @@ const ProductionTable = () => {
     label: code
   }));
 
-  // Handle step selection change
+  // Handle stepname selection change
 interface Material {
     materialCode: string;
     materialName: string;
@@ -150,13 +188,15 @@ interface Option {
     label: string;
 }
 
-const handleStepChange = (stepValue: string, rowIndex: number) => {
-    const selectedStep = data.find((item: StepData) => item.step === stepValue);
+const handleStepnameChange = (stepnameValue: string, rowIndex: number) => {
+    const selectedStep = sampleData.find((item: StepData) => item.stepname === stepnameValue);
     if (selectedStep) {
         const newData = [...data];
+        // Auto-increment step number
+        const stepNumber = (rowIndex + 1).toString().padStart(2, '0');
         newData[rowIndex] = {
-            ...newData[rowIndex],
-            ...selectedStep
+            ...selectedStep,
+            step: stepNumber // Override with auto-incremented step number
         };
         setData(newData);
     }
@@ -168,11 +208,13 @@ interface HandleChemicalChange {
 }
 
 const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => {
-    const selectedStep = data.find((item: StepData) => item.chemicalCode === chemicalValue);
+    const selectedStep = sampleData.find((item: StepData) => item.chemicalCode === chemicalValue);
     if (selectedStep) {
         const newData = [...data];
+        const stepNumber = (rowIndex + 1).toString().padStart(2, '0');
         newData[rowIndex] = {
             ...newData[rowIndex],
+            step: stepNumber, // Maintain auto-incremented step number
             chemicalCode: selectedStep.chemicalCode,
             consumption: selectedStep.consumption,
             materials: selectedStep.materials
@@ -366,16 +408,16 @@ const handleChemicalChange: HandleChemicalChange = (chemicalValue, rowIndex) => 
                     {/* Merged cells only on first material row */}
                     {materialIndex === 0 && (
                       <>
-                        <td rowSpan={step.materials.length} className="border p-2 text-center align-top">
-                          <Combobox
-                            options={stepOptions}
-                            value={step.step}
-                            onValueChange={(value) => handleStepChange(value, stepIndex)}
-                            placeholder="Select step"
-                          />
+                        <td rowSpan={step.materials.length} className="border p-2 text-center align-top bg-gray-100">
+                          {(stepIndex + 1).toString().padStart(2, '0')}
                         </td>
                         <td rowSpan={step.materials.length} className="border p-2 align-top">
-                          {step.stepname}
+                          <Combobox
+                            options={stepnameOptions}
+                            value={step.stepname}
+                            onValueChange={(value) => handleStepnameChange(value, stepIndex)}
+                            placeholder="Select step name"
+                          />
                         </td>
                         <td rowSpan={step.materials.length} className="border p-2 align-top">
                           <Input
