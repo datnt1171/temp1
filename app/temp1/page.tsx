@@ -1,15 +1,15 @@
 'use client'
 
 import React, { useState } from 'react';
+import { Plus, Download } from 'lucide-react';
 import { TableRow } from '@/types/production';
 import { stepOptions, chemicalOptions, initialTableData } from '@/data/production-data';
-import { usePDFGenerator } from '@/hooks/usePDFGenerator';
-import { ActionButtons } from '@/components/ActionButtons';
+import { generatePDF } from '@/lib/pdf-generator';
+import { Button } from '@/components/ui/button';
 import { ProductionTable } from '@/components/ProductionTable';
 
 const ProductionPage: React.FC = () => {
   const [tableData, setTableData] = useState<TableRow[]>(initialTableData);
-  const { generatePDF } = usePDFGenerator();
 
   const addRow = () => {
     const newRow: TableRow = {
@@ -78,10 +78,16 @@ const ProductionPage: React.FC = () => {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-6">Production Management</h1>
       
-      <ActionButtons 
-        onAddRow={addRow} 
-        onExportPDF={handleExportPDF} 
-      />
+      <div className="mb-4 flex gap-2">
+        <Button onClick={addRow}>
+          <Plus />
+          Add Row
+        </Button>
+        <Button variant="secondary" onClick={handleExportPDF}>
+          <Download />
+          Export PDF
+        </Button>
+      </div>
 
       <ProductionTable
         tableData={tableData}
